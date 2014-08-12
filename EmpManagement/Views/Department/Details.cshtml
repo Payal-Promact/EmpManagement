@@ -1,0 +1,52 @@
+﻿
+@model EmpManagement.Models.Department
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@*
+    <dl>---->It is a description list with terms and descriptions.
+    <dt>---->defines terms or names
+    <dd>---->defines description regarding the terms
+    In <dd> tag one can put paragraphs,line breaks,images,links,lists,etc...
+*@
+<div>
+    <h4>Department</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeptName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeptName)
+        </dd>
+
+    </dl>
+
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to Options", "Index")
+</p>
+
+@* ~/bundles/jqueryval is the virtual path of the bundle
+    which combines the files specified in it.
+     jqueryval bundle scripts which will take care of
+     unobtrusive validation,keeping DOM nice and clean.
+     This tells MVC to render a single script element
+     for the bundle.
+*@
+

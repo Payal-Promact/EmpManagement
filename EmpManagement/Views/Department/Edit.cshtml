@@ -1,0 +1,67 @@
+﻿
+@model EmpManagement.Models.Department
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@*
+    The anti-forgery token can be used to help protect your
+    application against cross-site request forgery.To use
+    this feature,call the AntiForgeryToken method from a form
+    and add the ValidateAntiForgeryTokenAttribute attribute to
+    the action method that you want to protect.
+*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Edit Department Info</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ID, new { @class = "col-md-2" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.ID)
+                @Html.ValidationMessageFor(model => model.ID)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptName, new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DeptName)
+                @Html.ValidationMessageFor(model => model.DeptName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="submit" value="Save" class="btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Options", "Index")
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+﻿@model EmpManagement.Models.Employee
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>Employees List</h2>
+
+<ul>
+    @for (int i = 0; i < ViewBag.ID; i++)
+    {
+        <li>@ViewBag.Message</li>
+    }
+</ul>
