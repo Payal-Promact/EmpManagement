@@ -13,7 +13,7 @@ namespace EmpManagement.DAL
         public EmployeeDBContext()
             : base("EmployeeDBContext")
         {
-
+            Database.SetInitializer<EmployeeDBContext>(new MigrateDatabaseToLatestVersion<EmployeeDBContext, EmpManagement.Migrations.Configuration>());
         }
 
         public DbSet<Employee> Employees { get; set; }

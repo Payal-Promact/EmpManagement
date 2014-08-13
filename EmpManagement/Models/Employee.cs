@@ -14,7 +14,7 @@ namespace EmpManagement.Models
         public decimal EmpSalary { get; set; }
         public int DeptID { get; set; }
 
-        public virtual Department Department { get; set; }
+      //  public virtual Department Department { get; set; }
     }
 
 }

@@ -14,16 +14,11 @@ namespace EmpManagement
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               name: "Employee",
-               url: "{controller}/{action}/{id}"
-               
-           );
-
-            routes.MapRoute(
-              name: "Department",
-              url: "{controller}/{action}/{id}"
+                 name: "Default",
+                 url: "{controller}/{action}/{id}",
+                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+             );
             
-          );
         }
     }
 }

@@ -100,14 +100,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\EmployeeDBContext.cs" />
     <Compile Include="DAL\EmployeeInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201408121228170_Initial.cs" />
-    <Compile Include="Migrations\201408121228170_Initial.Designer.cs">
-      <DependentUpon>201408121228170_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201408131204458_Initial.cs" />
+    <Compile Include="Migrations\201408131204458_Initial.Designer.cs">
+      <DependentUpon>201408131204458_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Department.cs" />
@@ -133,7 +134,7 @@
     <Content Include="Views\Employee\Delete.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Home\Employee.cshtml" />
-    <Content Include="Views\Home\Department.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -145,8 +146,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408121228170_Initial.resx">
-      <DependentUpon>201408121228170_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408131204458_Initial.resx">
+      <DependentUpon>201408131204458_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

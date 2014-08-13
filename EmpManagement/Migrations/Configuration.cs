@@ -26,27 +26,27 @@ namespace EmpManagement.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
+            //
 
-
-            context.Employees.AddOrUpdate(i => i.EmpName,
+                context.Employees.AddOrUpdate(i => i.EmpName,
                 new Employee
                 {
-                    ID = 1301,
+                    
                     EmpName = "Robert Johnson",
                     EmpDOJ = DateTime.Parse("2007-06-18"),
                     EmpContactNo = 8953421576,
                     EmpSalary = 35000,
-                    DeptID = 103,
+                    
                 },
 
                 new Employee
                 {
-                    ID = 1503,
+                    
                     EmpName = "Katherine Louis",
                     EmpDOJ = DateTime.Parse("2003-05-17"),
                     EmpContactNo = 7946132586,
                     EmpSalary = 60000,
-                    DeptID = 104,
+                    
                 }
 
               );
@@ -54,26 +54,20 @@ namespace EmpManagement.Migrations
             context.Departments.AddOrUpdate(i => i.DeptName,
                 new Department
                 {
-                    ID = 104,
+                    
                     DeptName = "Aeronautical",
                 },
                 new Department
                 {
-                    ID = 102,
+                    
                     DeptName = "MCA",
                 }
 
 
                 );
 
-
-
-
-
         }
     }
 }
-    
 
-
-
+  

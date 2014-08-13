@@ -5,59 +5,96 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>Employee Index</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
-<table class="table-bordered">
+<table class="table table-condensed col-md-12">
+    
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmpName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmpDOJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmpContactNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmpSalary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeptID)
-        </th>
-    </tr>
-
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.ID)
+                </div>
+            </th>
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.EmpName)
+                </div>
+            </th>
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.EmpDOJ)
+                </div>
+            </th>
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.EmpContactNo)
+                </div>
+            </th>
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.EmpSalary)
+                </div>
+            </th>
+            <th>
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => model.DeptID)
+                </div>
+            </th>
+</tr>
+        
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.ID)
+                </div>
             </td>
             <td>
+                <div class="col-md-2">
                 @Html.DisplayFor(modelItem => item.EmpName)
+                </div>
             </td>
             <td>
+                <div class="col-md-2">
                 @Html.DisplayFor(modelItem => item.EmpDOJ)
+                </div>
             </td>
             <td>
+                <div class="col-md-2">
                 @Html.DisplayFor(modelItem => item.EmpContactNo)
+                 </div>
             </td>
             <td>
+                <div class="col-md-2">
                 @Html.DisplayFor(modelItem => item.EmpSalary)
+                    </div>
             </td>
             <td>
+                <div class="col-md-2">
                 @Html.DisplayFor(modelItem => item.DeptID)
+                </div>
             </td>
             <td>
+                <div class="col-md-2">
+                @Html.ActionLink("Create New", "Create", new { id = item.ID })
+                </div>
+            </td>
+            <td>
+                <div class="col-md-2">
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                </div>
+            </td>
+            <td>
+                <div class="col-md-2">
                 @Html.ActionLink("Details", "Details", new { id = item.ID })
+                </div>
+            </td>
+            <td>
+                <div class="col-md-2">
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </div>
             </td>
         </tr>
     }
