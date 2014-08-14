@@ -36,11 +36,7 @@
                     @Html.DisplayNameFor(model => model.EmpSalary)
                 </div>
             </th>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.DeptID)
-                </div>
-            </th>
+           
 </tr>
         
     @foreach (var item in Model)
@@ -71,11 +67,7 @@
                 @Html.DisplayFor(modelItem => item.EmpSalary)
                     </div>
             </td>
-            <td>
-                <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.DeptID)
-                </div>
-            </td>
+           
             <td>
                 <div class="col-md-2">
                 @Html.ActionLink("Create New", "Create", new { id = item.ID })
