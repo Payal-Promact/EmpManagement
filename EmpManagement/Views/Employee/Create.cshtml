@@ -5,13 +5,16 @@
     ViewBag.Title = "Create";
 }
 
+<hr/>
+<hr/>
+
 <h2>Create Employee</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-        <div class="form-horizontal col-md-10">
+        <div class="form-horizontal col-md-offset-2 col-md-10">
         <h4>Employee</h4>
         <hr />
         @Html.ValidationSummary(true)
@@ -20,7 +23,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmpName, new { @class = "col-md-2" })
-            <div class="col-md-6">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.EmpName)
                 @Html.ValidationMessageFor(model => model.EmpName)
             </div>
@@ -28,7 +31,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmpDOJ, new { @class = "col-md-2" })
-            <div class="col-md-6">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.EmpDOJ)
                 @Html.ValidationMessageFor(model => model.EmpDOJ)
             </div>
@@ -36,7 +39,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmpContactNo, new { @class = "col-md-2" })
-            <div class="col-md-6">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.EmpContactNo)
                 @Html.ValidationMessageFor(model => model.EmpContactNo)
             </div>
@@ -44,17 +47,20 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmpSalary, new { @class = "col-md-2" })
-            <div class="col-md-6">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.EmpSalary)
                 @Html.ValidationMessageFor(model => model.EmpSalary)
             </div>
         </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.de)
+            </div>
        
 
         <div class="form-group">
-            <div class="col-md-8">
-                <input type="submit" value="Create" class="btn-default" /> |
+            <div class="col-md-4">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
                 @Html.ActionLink("Back to Options","Index")
             </div>
         </div>

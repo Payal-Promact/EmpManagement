@@ -46,7 +46,7 @@ namespace EmpManagement.Controllers
         // POST: /Department/Create/
         [HttpPost,ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,DeptName")] Department dp)
+        public ActionResult Create([Bind(Include="DeptName")] Department dp)
         {
             if(ModelState.IsValid)
             {
