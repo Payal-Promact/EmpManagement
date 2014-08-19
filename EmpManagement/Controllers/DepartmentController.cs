@@ -7,6 +7,7 @@ using System.Data.Entity;
 using EmpManagement.Models;
 using EmpManagement.DAL;
 using System.Net;
+using System.Data;
 
 namespace EmpManagement.Controllers
 {
@@ -48,11 +49,20 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="DeptName")] Department dp)
         {
-            if(ModelState.IsValid)
+            try
             {
-                db.Departments.Add(dp);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Departments.Add(dp);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch(DataException de)
+            {
+                string msg = de.Message;
+                ModelState.AddModelError("", "Unable to save changes");
+                //  return msg;
             }
             return View(dp);
 
@@ -78,11 +88,20 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,DeptName")] Department dp)
         {
-            if(ModelState.IsValid)
+            try
             {
-                db.Entry(dp).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(dp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException de)
+            {
+                string msg = de.Message;
+                ModelState.AddModelError("", "Unable to save changes");
+                //  return msg;
             }
             return View(dp);
 
@@ -110,9 +129,18 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Department dp = db.Departments.Find(id);
-            db.Departments.Remove(dp);
-            db.SaveChanges();
+            try
+            {
+                Department dp = db.Departments.Find(id);
+                db.Departments.Remove(dp);
+                db.SaveChanges();
+            }
+            catch (DataException de)
+            {
+                string msg = de.Message;
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                // return msg;
+            }
             return RedirectToAction("Index");
         }
     }

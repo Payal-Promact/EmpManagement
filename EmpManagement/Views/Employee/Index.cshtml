@@ -1,47 +1,46 @@
-﻿
-@model IEnumerable<EmpManagement.Models.Employee>
+﻿@model IEnumerable<EmpManagement.Models.Employee>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<hr/>
-<hr/>
+<hr />
+<hr />
 
 <h1>Employee Index</h1>
 
 
 <table class="table table-bordered col-md-10">
-    
+
     <tr>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.ID)
-                </div>
-            </th>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.EmpName)
-                </div>
-            </th>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.EmpDOJ)
-                </div>
-            </th>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.EmpContactNo)
-                </div>
-            </th>
-            <th>
-                <div class="col-md-2">
-                    @Html.DisplayNameFor(model => model.EmpSalary)
-                </div>
-            </th>
-           
-</tr>
-        
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ID)
+            </div>
+        </th>
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+        </th>
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.DOJ)
+            </div>
+        </th>
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.ContactNo)
+            </div>
+        </th>
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Salary)
+            </div>
+        </th>
+
+    </tr>
+
     @foreach (var item in Model)
     {
         <tr>
@@ -52,45 +51,53 @@
             </td>
             <td>
                 <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.EmpName)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </div>
             </td>
             <td>
                 <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.EmpDOJ)
+                    @Html.DisplayFor(modelItem => item.DOJ)
                 </div>
             </td>
             <td>
                 <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.EmpContactNo)
-                 </div>
+                    @Html.DisplayFor(modelItem => item.ContactNo)
+                </div>
             </td>
             <td>
                 <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.EmpSalary)
-                    </div>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </div>
             </td>
-           
-            <td>
-                <div class="col-md-2">
+
+
+            </tr>
+
+    <tr>
+        <td>
+            <div class="col-md-2">
                 @Html.ActionLink("Create New", "Create", new { id = item.ID })
-                </div>
-            </td>
-            <td>
-                <div class="col-md-2">
+            </div>
+        </td>
+        <td>
+            <div class="col-md-2">
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                </div>
-            </td>
-            <td>
-                <div class="col-md-2">
+            </div>
+        </td>
+
+        <td>
+            <div class="col-md-2">
                 @Html.ActionLink("Details", "Details", new { id = item.ID })
-                </div>
-            </td>
-            <td>
-                <div class="col-md-2">
+            </div>
+        </td>
+
+        <td>
+            <div class="col-md-2">
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </div>
-            </td>
-        </tr>
+            </div>
+        </td>
+    </tr>
+
     }
-</table>
+    </table>
+

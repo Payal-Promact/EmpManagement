@@ -15,17 +15,20 @@ namespace EmpManagement.Models
 
         [Required]
         [StringLength(30, ErrorMessage="Employee name cannot be more than 30 characters")]
-        public string EmpName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode = true)]
-        public DateTime EmpDOJ { get; set; }
+        public DateTime DOJ { get; set; }
 
         [Required]
+        [StringLength(20,ErrorMessage="Contact number cannot be more than 20 characters")]
         [Column("ContactNum")]
-        public UInt64 EmpContactNo { get; set; }
-        public decimal EmpSalary { get; set; }
+        public string ContactNo { get; set; }
+
+        [Required]
+        public decimal Salary { get; set; }
 
         //Foreign key
         public int DeptID { get; set; }

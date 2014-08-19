@@ -17,10 +17,28 @@ namespace EmpManagement.Controllers
         private EmployeeDBContext db = new EmployeeDBContext();
         //
         // GET: /Employee/
+
+      /*
         public ViewResult Index()
         {
             return View(db.Employees.ToList());
         }
+
+      */
+
+
+        public ActionResult Index()
+        {
+            IEnumerable<SelectListItem> items = db.Departments.Select(c => new SelectListItem
+                {
+                    Value = c.ID.ToString(),
+                    Text = c.Name
+
+                });
+            ViewBag.Departments = items;
+            return View();
+        }
+
 
         // GET: /Employee/Details/4
         public ActionResult Details(int? id)
@@ -45,7 +63,7 @@ namespace EmpManagement.Controllers
         }
 
         // POST: /Employee/Create
-        [HttpPost, ActionName("Create")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EmpName,EmpDOJ,EmpContactNo,EmpSalary")] Employee emp)
         {
@@ -60,9 +78,9 @@ namespace EmpManagement.Controllers
             }
             catch(DataException de)
             {
-                string msg = de.Message;
+               // string msg = de.Message;
                 ModelState.AddModelError("", "Unable to save changes");
-              //  return msg;
+               // return msg;
 
             }
 
@@ -131,7 +149,7 @@ namespace EmpManagement.Controllers
         }
 
         //POST: /Employees/Delete/3
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
@@ -143,7 +161,7 @@ namespace EmpManagement.Controllers
             }
             catch(DataException de)
             {
-                string msg=de.Message;
+              //  string msg=de.Message;
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
                // return msg;
             }
@@ -151,44 +169,16 @@ namespace EmpManagement.Controllers
         }
 
         
-        //trial code for populating department names from database
-
-      /*  
-       public IEnumerable<DeptLookupEntity> GetDeptList()
-        {
-            string conn = ConfigurationManager.ConnectionStrings["str"].ConnectionString;
-            dbContext = new DataContext(conn);
-
-            Table<DeptLookupEntity> cntTable = dbContext.GetTable<DeptLookupEntity>();
-            return cntTable.ToList();
-        }
-       
-       */
-
-
-
-        /* Ensuring that database connections are not left open
+         /* Ensuring that database connections are not left open
          * and the resources they hold are freed up
          */
 
-        protected override void Dispose(bool disposing)
+       /* protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
-       /* public ViewResult Index(string searchString)
-        {
-            var emp = from e in db.Employees
-                         select e;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                emp = emp.Where(e => e.EmpName.Contains(searchString));
-            }
-
-            return View(emp);
         }*/
+
 
     }
 }
