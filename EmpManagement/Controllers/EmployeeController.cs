@@ -16,30 +16,34 @@ namespace EmpManagement.Controllers
     {
         private EmployeeDBContext db = new EmployeeDBContext();
         //
-        // GET: /Employee/
+        
 
-      /*
+        // GET: /Employee/
         public ViewResult Index()
         {
-            return View(db.Employees.ToList());
-        }
+            var emp = db.Employees.ToList();
+            var dp = db.Departments.ToList();
+            if (dp.Count == 0)
+            {
+                ViewBag.Message="Please insert records in department";
+                
+            }
+            
+                return View(emp);
+            
+         }
 
-      */
-
-
-        public ActionResult Index()
+        //filling the dropdown list from database
+        public List<Department> getDepartmentList()
         {
-            IEnumerable<SelectListItem> items = db.Departments.Select(c => new SelectListItem
-                {
-                    Value = c.ID.ToString(),
-                    Text = c.Name
-
-                });
-            ViewBag.Departments = items;
-            return View();
+            using(db)
+            {
+                return
+                    (from dpt in db.Departments select dpt).ToList();   
+            }
         }
 
-
+    
         // GET: /Employee/Details/4
         public ActionResult Details(int? id)
         {
@@ -58,39 +62,43 @@ namespace EmpManagement.Controllers
         //GET: /Employee/Create
         public ActionResult Create()
         {
-           // ViewBag.DeptName = new SelectList(db.departments,"DeptName","DeptName");
+            var departments = db.Departments.ToList();
+            ViewBag.Departments = new SelectList(departments, "Id", "Name");
             return View();
         }
 
         // POST: /Employee/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmpName,EmpDOJ,EmpContactNo,EmpSalary")] Employee emp)
+        public ActionResult Create(Employee emp)
         {
-            try
-            {
+            var departments = db.Departments.ToList();
+            ViewBag.Departments = new SelectList(departments, "Id", "Name");
+
                 if (ModelState.IsValid)
                 {
-                    db.Employees.Add(emp);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                   if(db.Employees.Any(model => model.Name.Equals(emp.Name)))
+                   {
+                       ViewBag.Message = "Please make sure the department records are unique";
+                       return View(emp);
+                   }
+                   else
+                   {
+                        db.Employees.Add(emp);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
-            }
-            catch(DataException de)
-            {
-               // string msg = de.Message;
-                ModelState.AddModelError("", "Unable to save changes");
-               // return msg;
-
-            }
-
-            return View(emp);
+            
+               return View(emp);
         }
 
 
         // GET: /Employees/Edit/3
         public ActionResult Edit(int? id)
         {
+            var departments = db.Departments.ToList();
+            ViewBag.Departments = new SelectList(departments, "Id", "Name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -106,8 +114,10 @@ namespace EmpManagement.Controllers
         // POST: /Employees/Edit/3
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,EmpName,EmpDOJ,EmpContactNo,EmpSalary")] Employee emp)
+        public ActionResult Edit(Employee emp)
         {
+            var departments = db.Departments.ToList();
+            ViewBag.Departments = new SelectList(departments, "Id", "Name");
             try
             {
                 if (ModelState.IsValid)
@@ -117,12 +127,11 @@ namespace EmpManagement.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(DataException de)
-            {               
-                string msg=de.Message;
-                ModelState.AddModelError("", "Unable to save changes");
-               // return msg;
+            catch(DataException)
+            {
+
             }
+          
             return View(emp);
         }
 
@@ -153,19 +162,11 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            try
-            {
+           
                 Employee emp = db.Employees.Find(id);
                 db.Employees.Remove(emp);
                 db.SaveChanges();
-            }
-            catch(DataException de)
-            {
-              //  string msg=de.Message;
-                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
-               // return msg;
-            }
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
         }
 
         

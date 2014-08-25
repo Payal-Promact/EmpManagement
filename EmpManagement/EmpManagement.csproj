@@ -83,7 +83,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BootstrapScripts\bootstrap.css" />
+    <Content Include="BootstrapScripts\bootstrap.min.css" />
+    <Content Include="BootstrapScripts\Site.css" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\IISHostDemo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -11,6 +11,7 @@
 
 <h1>Department Index</h1>
 
+@Html.ActionLink("Create New", "Create")
 
 <table class="table table-striped col-md-10">
     <tr>
@@ -28,7 +29,7 @@
 
     @foreach (var item in Model)
     {
-        @Html.ActionLink("Create New", "Create", new { id = item.ID })
+     
         <tr>
             <td>
                 <div class="col-md-3">
@@ -49,4 +50,6 @@
             </td>
         </tr>
     }
+    @Html.ActionLink("Home Page", "../Home/Index")
 </table>
+

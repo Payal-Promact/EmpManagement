@@ -11,12 +11,15 @@ namespace EmpManagement.Models
     {
         //auto-increment
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int ID { get; set; }
 
-        [Required]
-        [StringLength(25,ErrorMessage="Department name cannot be more than 25 characters")]
+        [Required(ErrorMessage="Please enter Department name")]
+        [MaxLength(25,ErrorMessage="Department name cannot be more than 25 characters")]
         public string Name { get; set; }
 
+        //This is to maintain the many Employees associated with a Department entity
         public virtual ICollection<Employee> Employees { get; set; }
+      
     }
 }

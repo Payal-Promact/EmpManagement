@@ -16,11 +16,13 @@ namespace EmpManagement.Controllers
         private EmployeeDBContext db = new EmployeeDBContext();
 
         //
-        // GET: /Department/
+        // GET: /Department/    
         public ViewResult Index()
         {
-            return View(db.Departments.ToList());
+            List<Department> depts = db.Departments.ToList();
+            return View(depts);
         }
+      
 
         // GET:/Department/Details/2
         public ActionResult Details(int? id)
@@ -45,9 +47,9 @@ namespace EmpManagement.Controllers
 
 
         // POST: /Department/Create/
-        [HttpPost,ActionName("Create")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="DeptName")] Department dp)
+        public ActionResult Create(Department dp)
         {
             try
             {
@@ -84,22 +86,22 @@ namespace EmpManagement.Controllers
         }
 
         // POST: /Department/Edit/2
-        [HttpPost,ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,DeptName")] Department dp)
+        public ActionResult Edit(Department dp)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     db.Entry(dp).State = EntityState.Modified;
-                    db.SaveChanges();
+                    int sv=db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
             catch (DataException de)
             {
-                string msg = de.Message;
+                //string msg = de.Message;
                 ModelState.AddModelError("", "Unable to save changes");
                 //  return msg;
             }
@@ -125,22 +127,16 @@ namespace EmpManagement.Controllers
 
 
         // POST: /Department/Delete/5
-        [HttpPost,ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            try
-            {
+           
                 Department dp = db.Departments.Find(id);
                 db.Departments.Remove(dp);
                 db.SaveChanges();
-            }
-            catch (DataException de)
-            {
-                string msg = de.Message;
-                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
-                // return msg;
-            }
+               // return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+               
             return RedirectToAction("Index");
         }
     }

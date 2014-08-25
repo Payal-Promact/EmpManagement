@@ -7,24 +7,21 @@
 <hr />
 <hr />
 
+
 <h1>Employee Index</h1>
 
+@Html.ActionLink("Create New", "Create")
 
-<table class="table table-bordered col-md-10">
+<table class="table table-striped col-md-10">
 
     <tr>
         <th>
-            <div class="col-md-2">
-                @Html.DisplayNameFor(model => model.ID)
-            </div>
-        </th>
-        <th>
-            <div class="col-md-2">
+            <div class="">
                 @Html.DisplayNameFor(model => model.Name)
             </div>
         </th>
         <th>
-            <div class="col-md-2">
+            <div class="">
                 @Html.DisplayNameFor(model => model.DOJ)
             </div>
         </th>
@@ -39,23 +36,27 @@
             </div>
         </th>
 
+        <th>
+            <div class="col-md-2">
+                @Html.DisplayNameFor(model => model.Department)
+            </div>
+        </th>
+        
+
     </tr>
 
     @foreach (var item in Model)
     {
+       
         <tr>
+           
             <td>
-                <div class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.ID)
-                </div>
-            </td>
-            <td>
-                <div class="col-md-2">
+                <div class="">
                     @Html.DisplayFor(modelItem => item.Name)
                 </div>
             </td>
             <td>
-                <div class="col-md-2">
+                <div class="">
                     @Html.DisplayFor(modelItem => item.DOJ)
                 </div>
             </td>
@@ -70,34 +71,23 @@
                 </div>
             </td>
 
-
-            </tr>
-
-    <tr>
+          <td>
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </div>
+            </td>
+        
+       
         <td>
-            <div class="col-md-2">
-                @Html.ActionLink("Create New", "Create", new { id = item.ID })
-            </div>
-        </td>
-        <td>
-            <div class="col-md-2">
+           
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-            </div>
-        </td>
-
-        <td>
-            <div class="col-md-2">
                 @Html.ActionLink("Details", "Details", new { id = item.ID })
-            </div>
-        </td>
-
-        <td>
-            <div class="col-md-2">
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </div>
+    
         </td>
     </tr>
 
     }
+    @Html.ActionLink("Home Page", "../Home/Index")
     </table>
 
