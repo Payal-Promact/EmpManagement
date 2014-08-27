@@ -18,28 +18,37 @@ namespace EmpManagement.Controllers
         //
         
 
-        // GET: /Employee/
+        // GET: /Employee/Index
         public ViewResult Index()
         {
             var emp = db.Employees.ToList();
             var dp = db.Departments.ToList();
             if (dp.Count == 0)
             {
-                ViewBag.Message="Please insert records in department";
-                
-            }
-            
+               
                 return View(emp);
-            
+            }
+            else
+            {
+                return View(emp);
+            }
          }
 
         //filling the dropdown list from database
         public List<Department> getDepartmentList()
         {
+            var dp = db.Departments.ToList();
             using(db)
             {
-                return
-                    (from dpt in db.Departments select dpt).ToList();   
+                if (dp.Count == 0)
+                {
+                   return null;
+                }
+                else
+                {
+                    return
+                        (from dpt in db.Departments select dpt).ToList();
+                }
             }
         }
 
@@ -75,22 +84,21 @@ namespace EmpManagement.Controllers
             var departments = db.Departments.ToList();
             ViewBag.Departments = new SelectList(departments, "Id", "Name");
 
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                if (db.Employees.Any(model => model.DepartmentID.Equals(emp.DepartmentID)))
                 {
-                   if(db.Employees.Any(model => model.Name.Equals(emp.Name)))
-                   {
-                       ViewBag.Message = "Please make sure the department records are unique";
-                       return View(emp);
-                   }
-                   else
-                   {
-                        db.Employees.Add(emp);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
+                   return View(emp);
                 }
-            
-               return View(emp);
+                else
+                {
+                    db.Employees.Add(emp);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(emp);
+
         }
 
 
@@ -127,11 +135,12 @@ namespace EmpManagement.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(DataException)
+            catch (DataException /*de*/)
             {
+                ModelState.AddModelError("", "Unable to save changes. Try again");
 
             }
-          
+
             return View(emp);
         }
 
@@ -146,7 +155,7 @@ namespace EmpManagement.Controllers
 
             if(saveChangesError.GetValueOrDefault())
             {
-                ViewBag.ErrorMessage = "Delete failed";
+                ViewBag.ErrorMessage = "Delete failed or try again";
             }
 
             Employee emp = db.Employees.Find(id);
@@ -162,13 +171,19 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-           
+            try
+            {
                 Employee emp = db.Employees.Find(id);
                 db.Employees.Remove(emp);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-        }
 
+            }
+            catch (DataException /*de*/)
+            {
+                return RedirectToAction("Delete", new { id = id, errorinsavechanges = true });
+            }
+            return RedirectToAction("Index");
+        }
         
          /* Ensuring that database connections are not left open
          * and the resources they hold are freed up

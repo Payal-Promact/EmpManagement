@@ -13,10 +13,12 @@ namespace EmpManagement.Controllers
 {
     public class DepartmentController : Controller
     {
+
         private EmployeeDBContext db = new EmployeeDBContext();
 
+        
         //
-        // GET: /Department/    
+        // GET: /Department/Index
         public ViewResult Index()
         {
             List<Department> depts = db.Departments.ToList();
@@ -40,7 +42,7 @@ namespace EmpManagement.Controllers
         }
 
         // GET: /Department/Create
-        public ActionResult Create()
+        public ViewResult Create()
         {
             return View();
         }
@@ -51,23 +53,18 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Department dp)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Departments.Add(dp);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch(DataException de)
-            {
-                string msg = de.Message;
-                ModelState.AddModelError("", "Unable to save changes");
-                //  return msg;
-            }
-            return View(dp);
 
+            if (ModelState.IsValid)
+            {
+                db.Departments.Add(dp);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                return View(dp);
+            }
         }
 
         // GET:/Department/Edit/2
@@ -94,29 +91,43 @@ namespace EmpManagement.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    /*EntityState is an Enumeration while an entity can be in any of the 5 states..
+                    *These states are:Added,Unchanged,Modified,deleted or detached 
+                    * SaveChanges() work differently based on the entity state
+                    * Modified entities Are updated in the database and then become unchanged
+                    * when SaveChanges() returns
+                    */
+
                     db.Entry(dp).State = EntityState.Modified;
-                    int sv=db.SaveChanges();
+                    int sv = db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    return View(dp);
+                }
             }
-            catch (DataException de)
+            catch (DataException /*de*/)
             {
-                //string msg = de.Message;
-                ModelState.AddModelError("", "Unable to save changes");
-                //  return msg;
+                ModelState.AddModelError("", "Unable to save changes. Try again");
             }
+
             return View(dp);
 
         }
-
-
         // GET: /Department/Delete/4
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed or try again";
+            }
+
             Department dp = db.Departments.Find(id);
             if(dp == null)
             {
@@ -131,12 +142,18 @@ namespace EmpManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-           
+            try
+            {
                 Department dp = db.Departments.Find(id);
                 db.Departments.Remove(dp);
                 db.SaveChanges();
-               // return RedirectToAction("Delete", new { id = id, saveChangesError = true });
-               
+            }
+                
+            catch(DataException /*de*/)
+            {
+               return RedirectToAction("Delete", new { id = id, errorinsavechanges = true });
+            }
+
             return RedirectToAction("Index");
         }
     }

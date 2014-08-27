@@ -17,13 +17,14 @@ namespace EmpManagement.Models
 
         [Required(ErrorMessage="Please enter Employee Name")]
         [MaxLength(30, ErrorMessage="Employee name cannot be more than 30 characters")]
-        public string Name { get; set; }
+        public string Name { get; set; }                        
 
-        [Required(ErrorMessage="Please enter Date field")]
-        [DataType(DataType.Date)]
-
+        [Required(ErrorMessage = "Please enter Date field")]
+        [DataType(DataType.Date,ErrorMessage="Please enter a valid date in the format:dd-mm-yyyy")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}",ApplyFormatInEditMode = true)]
-        public DateTime DOJ { get; set; }
+        [Display(Name="Date Of Joining")]
+        public DateTime? DOJ { get; set; }
+    //    DOJ=new DateTime("01/01/1970");
 
         [Required(ErrorMessage="Please enter Contact Number")]
         [MinLength(10,ErrorMessage="Contact number cannot be less than 10 digits")]
@@ -32,6 +33,7 @@ namespace EmpManagement.Models
         public string ContactNo { get; set; }
 
         [Required(ErrorMessage="Please enter Salary")]
+        [Range(3000,10000000,ErrorMessage="Salary must be between 3000 to 10000000")]
         public decimal Salary { get; set; }
 
         [ForeignKey("Department")]

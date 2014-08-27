@@ -16,58 +16,58 @@
     <div class="form-horizontal col-md-offset-2 col-md-10">
         <h4>Edit Employee Info</h4>
         <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.ID)
 
-       
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DOJ, new { @class = "col-md-2" })              
-           <dl class="dl-horizontal">
-        <dd>
-            @Html.DisplayFor(model => model.DOJ)
-        </dd>
-          </dl>
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContactNo, new { @class = "col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.ContactNo)
-                @Html.ValidationMessageFor(model => model.ContactNo)
+            <div class="form-group">
+                @Html.LabelFor(model => model.DOJ, new { @class = "col-md-2" })
+                <dl class="dl-horizontal">
+                    <dd>
+                        @Html.DisplayFor(model => model.DOJ)
+                    </dd>
+                </dl>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Salary, new { @class = "col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Salary)
-                @Html.ValidationMessageFor(model => model.Salary)
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactNo, new { @class = "col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ContactNo)
+                    @Html.ValidationMessageFor(model => model.ContactNo)
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Department, new { @class="col-md-2" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(d => d.DepartmentID,departments)
-                @Html.ValidationMessageFor(model => model.DepartmentID)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Salary, new { @class = "col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Salary)
+                    @Html.ValidationMessageFor(model => model.Salary)
+                </div>
             </div>
-        </div>
-       
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" /> |
-                @Html.ActionLink("Back to Options", "Index")
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Department, new { @class="col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(d => d.DepartmentID,departments)
+                    @Html.ValidationMessageFor(model => model.DepartmentID)
+                </div>
             </div>
-        </div>
-    </div>
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="submit" value="Save" class="btn btn-primary" /> |
+                    @Html.ActionLink("Back to Options", "Index")
+                </div>
+            </div>
+            
+</div>
+    
 }
 
 
