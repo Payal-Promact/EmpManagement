@@ -86,6 +86,7 @@ namespace EmpManagement.Controllers
 
             if (ModelState.IsValid)
             {
+               // alert('Yes ModelState is valid');
                 if (db.Employees.Any(model => model.DepartmentID.Equals(emp.DepartmentID)))
                 {
                    return View(emp);
@@ -122,25 +123,36 @@ namespace EmpManagement.Controllers
         // POST: /Employees/Edit/3
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit(Employee emp)
         {
             var departments = db.Departments.ToList();
             ViewBag.Departments = new SelectList(departments, "Id", "Name");
+            //  var errors = ModelState.Values.SelectMany(v => v.Errors);
             try
             {
+                /*The ModelState.IsValid internally checks the Values.All(modelState => 
+                 * modelState.Errors.Count == 0) expression..
+                 * Because there was no input,the values collection will be empty
+                 * so modelState.isvalid will return true..
+                 */
+
                 if (ModelState.IsValid)
                 {
                     db.Entry(emp).State = EntityState.Modified;
-                    db.SaveChanges();
+                    int sv = db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    return View(emp);
+                }
+                
             }
-            catch (DataException /*de*/)
+            catch (DataException /* de */)
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again");
-
+                ModelState.AddModelError("", "Unable to save changes .. Try again");
             }
-
             return View(emp);
         }
 

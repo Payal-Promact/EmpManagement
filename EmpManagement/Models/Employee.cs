@@ -24,12 +24,11 @@ namespace EmpManagement.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}",ApplyFormatInEditMode = true)]
         [Display(Name="Date Of Joining")]
         public DateTime? DOJ { get; set; }
-    //    DOJ=new DateTime("01/01/1970");
-
+  
         [Required(ErrorMessage="Please enter Contact Number")]
         [MinLength(10,ErrorMessage="Contact number cannot be less than 10 digits")]
         [MaxLength(20,ErrorMessage="Contact number cannot be more than 20 characters")]
-        [Column("ContactNum")]
+        [Display(Name="ContactNum")]
         public string ContactNo { get; set; }
 
         [Required(ErrorMessage="Please enter Salary")]

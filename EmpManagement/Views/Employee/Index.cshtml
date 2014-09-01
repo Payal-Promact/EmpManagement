@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
-    ViewBag.Message = "No department records exist,please insert one";
-    ViewBag.Message = "Please make sure the department records are unique";
+  @*  ViewBag.Message = "No department records exist,please insert one";
+    ViewBag.Message = "Please make sure the department records are unique";*@
 }
 
 <hr />
@@ -45,7 +45,7 @@
         </th>
 
         <th>
-            <div class="col-md-2">
+            <div class="">
                 @Html.DisplayNameFor(model => model.Department)
             </div>
         </th>
@@ -86,7 +86,7 @@
             </td>
 
           <td>
-                <div class="col-md-2">
+                <div class="">
                     @Html.DisplayFor(modelItem => item.Department.Name)
                 </div>
             </td>
